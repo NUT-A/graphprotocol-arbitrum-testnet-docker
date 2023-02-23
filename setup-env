@@ -1,0 +1,42 @@
+replace() {
+    sed -i "s|$1|$2|g" .env
+}
+
+replace_email() {
+    read -p "Введите email: " email
+    replace "%%email%%" $email
+}
+
+replace_domain() {
+    read -p "Введите домен: " domain
+    replace "%%domain%%" $domain
+}
+
+replace_passwords() {
+    read -p "Введите пароль для администратора: " admin_password
+    replace "%%admin_password%%" $admin_password
+
+    read -p "Введите пароль для базы данных: " db_password
+    replace "%%db_password%%" $db_password
+}
+
+replace_operator_seed() {
+    read -p "Введите seed оператор: " operator_seed
+    replace "%%operator_seed%%" "$operator_seed"
+}
+
+replace_staking_address() {
+    read -p "Введите адрес для стейкинга: " staking_address
+    replace "%%address%%" $staking_address
+}
+
+# Create folder
+rm -f .env
+cp ./templates/.env-template .env
+
+replace_email
+replace_domain
+replace_passwords
+
+replace_operator_seed
+replace_staking_address
